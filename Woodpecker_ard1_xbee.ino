@@ -6,10 +6,9 @@ int distance = 30;        // THIS IS WHERE YOU ADJUST THE DISTANCE THRESHOLD - t
 
 const int dirpin = 12;    // Tells the driver what direction to rotate.
 const int steppin = 13;   // Tells the driver to step.
-const int signalsign = Serial.println("1");  // Tells Arduino 2 (sign) to begin 
+// const int signalsign = Serial.println("1");  // Tells Arduino 2 (sign) to begin 
 
-int steps[] = {
-  756, 844};  // Number of steps (one revolution = 1600 steps).
+int steps[] = {756, 844};  // Number of steps (one revolution = 1600 steps).
 
 int rpm = 6;  // Speed at which motor turns.
 long stepdelay = (60*1000000)/(rpm * 1600); // Microseconds per step.
@@ -17,57 +16,36 @@ int rampup = 10;  // Number of steps to speed up and slow down at half speed.
 
 bool nextRotation = false; // Which amount of steps to turn the disk (true is 756, false if 844 - see line 11)
 
-void setup() 
-{
+void setup() {
   pinMode(dirpin, OUTPUT);
   pinMode(steppin, OUTPUT);
   // pinMode(signalsign, OUTPUT);
   Serial.begin(9600);
   Dist.begin(A0);
+  digitalWrite(dirpin, HIGH);     // Set the direction.
 }
-void loop()
-{
-  if(Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
-    digitalWrite(signalsign, HIGH); // Turn signal pin on
+void loop() {
+  if (Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
-    // Serial.print( "Distance: ");
-    // Serial.println( Dist.getDistanceCentimeter() );
-    // int i;
-
-    digitalWrite(dirpin, HIGH);     // Set the direction.      
-
-    // delay(2000+random(2000));                   // Delay between pattern 1 and 2 in ms.
-
-
-    // spinDisk();
-    // delay(random(2000, 4000));
-    // spinDisk();
-    // delay(random(2000, 4000));
-    // triggerSign();
-    // delay(random(2000, 4000));
-    // spinDisk();
-    // delay(random(2000, 4000));
-
-
-    for (int i = 0; i < random(1, 2); i++)    //  randomizes how many times the turntable turns between 1 and 2 times
-    {
-      spinDisk();
-      delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
-    }
-
-    triggerSign();
+    spinDisk();
+    delay(random(2000, 4000));
+    spinDisk();
     delay(random(2000, 4000));
 
+    while (Dist.getDistanceCentimeter() < distance) {
 
+      triggerSign();
+      delay(random(2000, 4000));
 
-    // delay(4000+random(2000));                   // Delay between tappern 2 and 1 in ms.
-
-
+      for (int i = 0; i < random(2, 3); i++) {   //  randomizes how many times the turntable turns between 1 and 2 times
+        spinDisk();
+        delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
+      }
+    }
   }
 }
 
-void spinDisk() 
-{
+void spinDisk() {
   int i;
   if (nextRotation)
   {
@@ -120,5 +98,6 @@ void triggerSign() {
   // digitalWrite(signalsign, HIGH);
   // delay(10);
   // digitalWrite(signalsign, LOW);
+  Serial.println("1");
   delay(5000);                     // TO BE ADJUSTED based on time it taked for the second arduino (sign) to complete
 }
