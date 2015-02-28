@@ -2,6 +2,7 @@
 
 DistanceGP2Y0A21YK Dist;
 
+int distance = 30; // THIS IS WHERE YOU ADJUST THE DISTANCE THRESHOLD - the higher the number, the farther away it will look for a trigger
 
 const int dirpin = 12;   // Tells the driver what direction to rotate.
 const int steppin = 13;  // Tells the driver to step.
@@ -23,7 +24,7 @@ void setup()
 }
 void loop()
 {
-  if(Dist.getDistanceCentimeter() < 30) { // If [get distance in cm] is less than 30cm, then set begin motor sequence
+  if(Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
     digitalWrite(signalsign, HIGH); // Turn signal pin on
 
     Serial.print( "Distance: ");
@@ -50,7 +51,7 @@ void loop()
       delayMicroseconds(stepdelay * 2);      // This runs at half normal speed.
     }       
 
-    delay(14000+random(2000));                   // Waits for between 14 and 16 seconds.
+    delay(2000+random(2000));                   // Delay between pattern 1 and 2 in ms.
 
     Serial.println("Part 2");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
@@ -71,7 +72,7 @@ void loop()
       delayMicroseconds(stepdelay * 2);      // This runs at half normal speed.
     }
 
-    delay(14000+random(2000));                   // Waits for between 14 and 16 seconds.
+    delay(4000+random(2000));                   // Delay between tappern 2 and 1 in ms.
 
 
   } 

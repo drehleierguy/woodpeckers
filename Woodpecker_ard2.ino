@@ -3,6 +3,8 @@
 #define sol3 11
 #define inpin 2
 
+unsigned int delaystarttime = 20000; // THIS IS WHERE YOU ADJUST THE DELAY
+
 int datanum=0;
 
 boolean innew;
@@ -45,7 +47,7 @@ void loop() {
     if (inold == false && innew == true) { // Checks to see if input has gone from low to high
       Serial.print(innew);
       Serial.println("  ");
-      delay(20000); // Delay time before start
+      delay(delaystarttime); // Delay time before start
     }
 
     for(int blah = 0; blah < 69; blah++) {
