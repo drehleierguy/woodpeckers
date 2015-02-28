@@ -44,27 +44,14 @@ void loop()
 
 
     while (Dist.getDistanceCentimeter() < distance) {
-      // delay(2000+random(2000));                   // Delay between pattern 1 and 2 in ms.
-
-
-      // spinDisk();
-      // delay(random(2000, 4000));
-      // spinDisk();
-      // delay(random(2000, 4000));
-      // triggerSign();
-      // delay(random(2000, 4000));
-      // spinDisk();
-      // delay(random(2000, 4000));
-
-
-      for (int i = 0; i < random(1, 2); i++)    //  randomizes how many times the turntable turns between 1 and 2 times
-      {
-        spinDisk();
-        delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
-      }
 
       triggerSign();
       delay(random(2000, 4000));
+
+      for (int i = 0; i < random(2, 3); i++) {   //  randomizes how many times the turntable turns between 1 and 2 times
+        spinDisk();
+        delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
+      }
 
     }
 
