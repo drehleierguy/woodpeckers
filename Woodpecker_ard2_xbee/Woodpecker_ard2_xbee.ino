@@ -48,12 +48,12 @@ void setup() {
 
 void loop() {
   // inold = innew;
-  innew = (Serial.available());
+  innew = (Serial.available() > 0);
 
   if (innew == true) {
     while (innew == true)
     {
-      innew = (Serial.available());
+      innew = (Serial.available() > 0);
     }
 
     // if (inold == false && innew == true) { // Checks to see if input has gone from low to high
