@@ -4,7 +4,7 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    Serial.write(Serial.read());
+    Serial.write(Serial.read()+1);
   }
   
 }
