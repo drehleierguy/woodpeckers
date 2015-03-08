@@ -27,6 +27,7 @@ void setup()
   Serial.begin(9600);
   Dist.begin(A0);
   digitalWrite(dirpin, HIGH);     // Set the direction.
+  randomSeed(analogRead(3)); // Random seed
 }
 
 
@@ -56,8 +57,8 @@ void loop()
 
       spinDisk();
       delay(random(2000, 4000));
-      
-      if (random(1) == 1) {
+
+      if (random(10) <= 5) {
        spinDisk();
        delay(random(2000, 4000)); 
       }
