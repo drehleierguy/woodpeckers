@@ -54,10 +54,18 @@ void loop()
      triggerSign();
      delay(random(2000, 4000));
 
-      for (int i = 0; i < random(1, 2); i++) {   //  randomizes how many times the turntable turns between 1 and 2 times
-        spinDisk();
-        delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
+      spinDisk();
+      delay(random(2000, 4000));
+      
+      if (random(1) == 1) {
+       spinDisk();
+       delay(random(2000, 4000)); 
       }
+
+      // for (int i = 0; i < random(1, 2); i++) {   //  randomizes how many times the turntable turns between 1 and 2 times
+      //   spinDisk();
+      //   delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
+      // }
 
     }
 
