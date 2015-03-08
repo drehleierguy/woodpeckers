@@ -48,11 +48,11 @@ void loop()
 
     while (Dist.getDistanceCentimeter() < distance) {
 
-     Serial.print( "Distance: ");
-     Serial.println( Dist.getDistanceCentimeter() );
+      Serial.print( "Distance: ");
+      Serial.println( Dist.getDistanceCentimeter() );
 
-     triggerSign();
-     delay(random(2000, 4000));
+      triggerSign();
+      delay(random(2000, 4000));
 
       spinDisk();
       delay(random(2000, 4000));
