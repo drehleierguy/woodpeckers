@@ -80,9 +80,9 @@ void loop() {
 
 
 bool getInput() {
-  if ( Serial.available() ) { // Check to see if at least one character is available
+  if ( Serial.available() > 0 ) { // Check to see if at least one character is available
     char ch = Serial.read();
-    if ( ch = '1' ) { // is this an ascii digit between 0 and 9?
+    if ( ch = '1' ) { // is this the ascii digit 1?
       return true;
     } else {
       return false;
