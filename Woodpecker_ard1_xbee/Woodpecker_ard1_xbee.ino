@@ -14,6 +14,8 @@ int rpm = 6;  // Speed at which motor turns.
 long stepdelay = (60*1000000)/(rpm * 1600); // Microseconds per step.
 int rampup = 10;  // Number of steps to speed up and slow down at half speed.
 
+int readDist = distance + 1;
+
 bool nextRotation = false; // Which amount of steps to turn the disk (true is 756, false if 844 - see line 11)
 
 void setup() {
@@ -25,15 +27,18 @@ void setup() {
   digitalWrite(dirpin, HIGH);     // Set the direction.
 }
 void loop() {
-  if (Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
+  readDist = Dist.getDistanceCentimeter();
+  if (readDist < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
     spinDisk();
     delay(random(2000, 4000));
     spinDisk();
     delay(random(2000, 4000));
 
-    while (Dist.getDistanceCentimeter() < distance) {
+    while (readDist < distance) {
 
+      readDist = Dist.getDistanceCentimeter();
+      
       triggerSign();
       delay(random(2000, 4000));
 
