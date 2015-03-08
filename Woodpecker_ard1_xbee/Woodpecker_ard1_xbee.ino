@@ -98,6 +98,6 @@ void triggerSign() {
   // digitalWrite(signalsign, HIGH);
   // delay(10);
   // digitalWrite(signalsign, LOW);
-  Serial.println("1");
+  Serial.print("1");
   delay(5000);                     // TO BE ADJUSTED based on time it takes for the second arduino (sign) to complete
 }
