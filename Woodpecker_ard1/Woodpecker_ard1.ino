@@ -15,6 +15,8 @@ int rpm = 6;  // Speed at which motor turns.
 long stepdelay = (60*1000000)/(rpm * 1600); // Microseconds per step.
 int rampup = 10;  // Number of steps to speed up and slow down at half speed.
 
+int readDist = 60;
+
 bool nextRotation = false; // Which amount of steps to turn the disk (true is 756, false if 844 - see line 11)
 
 void setup() 
@@ -30,6 +32,7 @@ void setup()
 
 void loop()
 {
+  readDist = Dist.getDistanceCentimeter();
   if (Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
       Serial.print( "Distance: ");
@@ -47,6 +50,8 @@ void loop()
 
       triggerSign();
       delay(random(2000, 4000));
+     Serial.print( "Distance: ");
+     Serial.println( Dist.getDistanceCentimeter() );
 
       for (int i = 0; i < random(2, 3); i++) {   //  randomizes how many times the turntable turns between 1 and 2 times
         spinDisk();
@@ -59,6 +64,16 @@ void loop()
 
 
   }
+  // if (readDist < distance) {
+  //   Serial.print(readDist);
+  //   Serial.println(" - true");
+  //   spinDisk();
+  // } 
+  // else {
+  //   Serial.print(readDist);
+  //   Serial.println(" - false");
+  // };
+  delay(100);
 }
 
 void spinDisk() 
