@@ -35,7 +35,7 @@ void loop()
   readDist = Dist.getDistanceCentimeter();
   if (Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
-      Serial.print( "Distance: ");
+    Serial.print( "Distance: ");
     Serial.println( Dist.getDistanceCentimeter() );
     // int i;
 
@@ -48,10 +48,11 @@ void loop()
 
     while (Dist.getDistanceCentimeter() < distance) {
 
-      triggerSign();
-      delay(random(2000, 4000));
      Serial.print( "Distance: ");
      Serial.println( Dist.getDistanceCentimeter() );
+
+     triggerSign();
+     delay(random(2000, 4000));
 
       for (int i = 0; i < random(2, 3); i++) {   //  randomizes how many times the turntable turns between 1 and 2 times
         spinDisk();
