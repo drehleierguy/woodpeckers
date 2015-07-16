@@ -45,6 +45,8 @@ void loop()
     delay(random(2000, 4000));
     spinDisk();
     delay(random(2000, 4000));
+    triggerSign();
+    delay(random(2000, 4000));
 
     readDist = Dist.getDistanceCentimeter();
 
@@ -53,10 +55,10 @@ void loop()
       Serial.print( "Distance: ");
       Serial.println( readDist );
 
-      triggerSign();
+      spinDisk();
       delay(random(2000, 4000));
 
-      spinDisk();
+      triggerSign();
       delay(random(2000, 4000));
 
       if (random(10) <= 5) {
