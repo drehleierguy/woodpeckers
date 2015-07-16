@@ -24,7 +24,7 @@ void setup()
 {
   pinMode(dirpin, OUTPUT);
   pinMode(steppin, OUTPUT);
-  pinMode(signalsign, OUTPUT);
+  // pinMode(signalsign, OUTPUT);
   Serial.begin(9600);
   Dist.begin(A0);
   digitalWrite(dirpin, HIGH);     // Set the direction.
@@ -37,8 +37,8 @@ void loop()
   readDist = Dist.getDistanceCentimeter();
   if (readDist < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
-    Serial.print( "Distance: ");
-    Serial.println( Dist.getDistanceCentimeter() );
+    // Serial.print( "Distance: ");
+    // Serial.println( Dist.getDistanceCentimeter() );
     // int i;
 
     spinDisk();
@@ -52,8 +52,8 @@ void loop()
 
     while (readDist < distance) {
 
-      Serial.print( "Distance: ");
-      Serial.println( readDist );
+      // Serial.print( "Distance: ");
+      // Serial.println( readDist );
 
       spinDisk();
       delay(random(2000, 4000));
@@ -93,7 +93,7 @@ void spinDisk()
   int i;
   if (nextRotation)
   {
-    Serial.println("Part 1");
+    // Serial.println("Part 1");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
       digitalWrite(steppin, LOW);  // This LOW to HIGH change is what creates the
       digitalWrite(steppin, HIGH); // "Rising Edge" so the easydriver knows to when to step.
@@ -115,7 +115,7 @@ void spinDisk()
     nextRotation = false;
   } 
   else {
-    Serial.println("Part 2");
+    // Serial.println("Part 2");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
       digitalWrite(steppin, LOW);  // This LOW to HIGH change is what creates the
       digitalWrite(steppin, HIGH); // "Rising Edge" so the easydriver knows to when to step.
@@ -139,9 +139,10 @@ void spinDisk()
 }
 
 void triggerSign() {
-  digitalWrite(signalsign, HIGH);
-  delay(10);
-  digitalWrite(signalsign, LOW);
+  // digitalWrite(signalsign, HIGH);
+  // delay(10);
+  // digitalWrite(signalsign, LOW);
+  Serial.print("1");
   delay(5000);                     // TO BE ADJUSTED based on time it taked for the second arduino (sign) to complete
 }
 

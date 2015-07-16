@@ -1,9 +1,9 @@
 #define sol1 13
 #define sol2 12
 #define sol3 11
-#define inpin 2
+// #define inpin 2
 
-unsigned int delaystarttime = 20000; // THIS IS WHERE YOU ADJUST THE DELAY
+// unsigned int delaystarttime = 20000; // THIS IS WHERE YOU ADJUST THE DELAY
 
 int datanum=0;
 
@@ -40,20 +40,20 @@ void setup() {
   pinMode (sol1, OUTPUT);
   pinMode (sol2, OUTPUT);
   pinMode (sol3, OUTPUT);
-  pinMode (inpin, INPUT);
-  Serial.begin(9600);
-  Serial.print("Reset. Data length:");
-  Serial.println(sizeof(data));
+  // pinMode (inpin, INPUT);
+  // Serial.begin(9600);
+  // Serial.print("Reset. Data length:");
+  // Serial.println(sizeof(data));
 }
 
 void loop() {
   // inold = innew;
-  innew = digitalRead(inpin);
+  innew = (Serial.available() > 0);
 
   if (innew == true) {
     while (innew == true)
     {
-      innew = digitalRead(inpin);
+      innew = (Serial.available() > 0);
     }
 
     // if (inold == false && innew == true) { // Checks to see if input has gone from low to high
@@ -73,6 +73,18 @@ void loop() {
 
     dataPosition = 1 - dataPosition;
 
-    Serial.println("datanum reset");
+    // Serial.println("datanum reset");
+  }
+}
+
+bool getInput() {
+  if ( Serial.available() > 0 ) { // Check to see if at least one character is available
+    char ch = Serial.read();
+    // if ( ch == '1' ) { // is this the ascii digit 1?
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return ch == '1';
   }
 }
