@@ -15,7 +15,8 @@ int rpm = 6;  // Speed at which motor turns.
 long stepdelay = (60*1000000)/(rpm * 1600); // Microseconds per step.
 int rampup = 10;  // Number of steps to speed up and slow down at half speed.
 
-int readDist = 60;
+int readDist; // This variable is used to store the result of querying the sensor, so that we don't have to re-query the sensor every time we want the distance.
+              // This in effect decouples looking at the distance from getting the distance.
 
 bool nextRotation = false; // Which amount of steps to turn the disk (true is 756, false if 844 - see line 11)
 
@@ -71,9 +72,6 @@ void loop()
       readDist = Dist.getDistanceCentimeter();
 
     }
-
-    // delay(4000+random(2000));                   // Delay between tappern 2 and 1 in ms.
-
 
   }
   // if (readDist < distance) {
