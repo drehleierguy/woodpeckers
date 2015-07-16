@@ -34,23 +34,23 @@ void setup()
 void loop()
 {
   readDist = Dist.getDistanceCentimeter();
-  if (Dist.getDistanceCentimeter() < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
+  if (readDist < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
     Serial.print( "Distance: ");
     Serial.println( Dist.getDistanceCentimeter() );
     // int i;
 
-
     spinDisk();
     delay(random(2000, 4000));
     spinDisk();
     delay(random(2000, 4000));
 
+    readDist = Dist.getDistanceCentimeter();
 
-    while (Dist.getDistanceCentimeter() < distance) {
+    while (readDist < distance) {
 
       Serial.print( "Distance: ");
-      Serial.println( Dist.getDistanceCentimeter() );
+      Serial.println( readDist );
 
       triggerSign();
       delay(random(2000, 4000));
@@ -67,6 +67,8 @@ void loop()
       //   spinDisk();
       //   delay(random(2000, 4000));      //  random delay values - currenly between 2 - 4 seconds
       // }
+
+      readDist = Dist.getDistanceCentimeter();
 
     }
 
