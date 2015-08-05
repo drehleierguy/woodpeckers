@@ -93,7 +93,7 @@ void spinDisk()
   int i;
   if (nextRotation)
   {
-    Serial.println("Part 1");
+    Serial.println("DISK - 1ST SET");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
       digitalWrite(steppin, LOW);  // This LOW to HIGH change is what creates the
       digitalWrite(steppin, HIGH); // "Rising Edge" so the easydriver knows to when to step.
@@ -115,7 +115,7 @@ void spinDisk()
     nextRotation = false;
   } 
   else {
-    Serial.println("Part 2");
+    Serial.println("DISK - 2ST SET");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
       digitalWrite(steppin, LOW);  // This LOW to HIGH change is what creates the
       digitalWrite(steppin, HIGH); // "Rising Edge" so the easydriver knows to when to step.
@@ -139,6 +139,7 @@ void spinDisk()
 }
 
 void triggerSign() {
+  Serial.println("SIGN");
   digitalWrite(signalsign, HIGH);
   delay(10);
   digitalWrite(signalsign, LOW);
