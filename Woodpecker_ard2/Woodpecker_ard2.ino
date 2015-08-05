@@ -31,7 +31,7 @@ void setup() {
   pinMode (sol2, OUTPUT);
   pinMode (sol3, OUTPUT);
   // pinMode (inpin, INPUT);
-  // Serial.begin(9600);
+  Serial.begin(9600);
   // Serial.print("Reset. Data length:");
   // Serial.println(sizeof(data));
 }
