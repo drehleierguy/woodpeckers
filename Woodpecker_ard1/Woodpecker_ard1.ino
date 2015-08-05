@@ -34,6 +34,7 @@ void setup()
 
 void loop()
 {
+  // readDist = 20;
   readDist = Dist.getDistanceCentimeter();
   if (readDist < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
@@ -85,6 +86,7 @@ void loop()
   //   Serial.print(readDist);
   //   Serial.println(" - false");
   // };
+  // triggerSign();
   delay(100);
 }
 
