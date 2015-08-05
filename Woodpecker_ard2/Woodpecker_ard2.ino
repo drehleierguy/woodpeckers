@@ -23,17 +23,7 @@ byte dataPosition = 0;
 
 byte solnum = 13;
 
-void pulse(unsigned int delaytime) {
-  digitalWrite(solnum, HIGH);
-  delay(40);
-  digitalWrite(solnum, LOW);
-  delay(delaytime-20);
-  solnum--;
-  if (solnum < 11){
-    solnum=13;
-  }
 
-}
 
 
 void setup() {
@@ -47,33 +37,37 @@ void setup() {
 }
 
 void loop() {
-  // inold = innew;
-  innew = (Serial.available() > 0);
+  // // inold = innew;
+  // innew = (Serial.available() > 0);
 
-  if (innew == true) {
-    while (innew == true)
-    {
-      innew = (Serial.available() > 0);
-    }
+  // if (innew == true) {
+  //   while (innew == true)
+  //   {
+  //     innew = (Serial.available() > 0);
+  //   }
 
-    // if (inold == false && innew == true) { // Checks to see if input has gone from low to high
-    //   Serial.print(innew);
-    //   Serial.println("  ");
-    //   // delay(delaystarttime); // Delay time before start
-    // }
+  //   // if (inold == false && innew == true) { // Checks to see if input has gone from low to high
+  //   //   Serial.print(innew);
+  //   //   Serial.println("  ");
+  //   //   // delay(delaystarttime); // Delay time before start
+  //   // }
 
-    for (int i = 0; i < dataLength[dataPosition]; i++) {
-      pulse(data[dataPosition][i]);
-      // Serial.print(i);
-      // Serial.print(": ");
-      // Serial.print(data[i]);
-      // Serial.print("    Next: ");
-      // Serial.println(data[i+1]);
-    }
+  //   for (int i = 0; i < dataLength[dataPosition]; i++) {
+  //     pulse(data[dataPosition][i]);
+  //     // Serial.print(i);
+  //     // Serial.print(": ");
+  //     // Serial.print(data[i]);
+  //     // Serial.print("    Next: ");
+  //     // Serial.println(data[i+1]);
+  //   }
 
-    dataPosition = 1 - dataPosition;
+  //   dataPosition = 1 - dataPosition;
 
-    // Serial.println("datanum reset");
+  //   // Serial.println("datanum reset");
+  // }
+
+  if (getInput()) {
+    runSign();
   }
 }
 
@@ -87,4 +81,29 @@ bool getInput() {
     // }
     return ch == '1';
   }
+}
+
+
+void pulse(unsigned int delaytime) {
+  digitalWrite(solnum, HIGH);
+  delay(40);
+  digitalWrite(solnum, LOW);
+  delay(delaytime-20);
+  solnum--;
+  if (solnum < 11){
+    solnum=13;
+  }
+}
+
+void runSign() {
+  for (int i = 0; i < dataLength[dataPosition]; i++) {
+      pulse(data[dataPosition][i]);
+      // Serial.print(i);
+      // Serial.print(": ");
+      // Serial.print(data[i]);
+      // Serial.print("    Next: ");
+      // Serial.println(data[i+1]);
+    }
+
+    dataPosition = 1 - dataPosition;
 }
