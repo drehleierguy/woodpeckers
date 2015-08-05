@@ -69,7 +69,7 @@ void loop() {
   if (recInput) {
     runSign();
   }
-  delay(10);
+  delay(1);
 }
 
 bool getInput() {
