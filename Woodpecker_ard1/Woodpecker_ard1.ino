@@ -2,7 +2,7 @@
 
 DistanceGP2Y0A21YK Dist;
 
-int distance = 30;        // THIS IS WHERE YOU ADJUST THE DISTANCE THRESHOLD - the higher the number, the farther away it will look for a trigger
+int distance = 10;        // THIS IS WHERE YOU ADJUST THE DISTANCE THRESHOLD - the higher the number, the farther away it will look for a trigger
 
 const int dirpin = 12;    // Tells the driver what direction to rotate.
 const int steppin = 13;   // Tells the driver to step.
@@ -38,7 +38,7 @@ void loop()
   if (readDist < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
     Serial.print( "Distance: ");
-    Serial.println( Dist.getDistanceCentimeter() );
+    Serial.println( readDist );
     // int i;
 
     spinDisk();
