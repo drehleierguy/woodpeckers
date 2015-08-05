@@ -23,7 +23,7 @@ byte dataPosition = 0;
 
 byte solnum = 13;
 
-
+bool recInput;
 
 
 void setup() {
@@ -65,8 +65,8 @@ void loop() {
 
   //   // Serial.println("datanum reset");
   // }
-
-  if (getInput()) {
+  recInput = getInput();
+  if (recInput) {
     runSign();
   }
   delay(10);
@@ -75,12 +75,12 @@ void loop() {
 bool getInput() {
   if ( Serial.available() > 0 ) { // Check to see if at least one character is available
     char ch = Serial.read();
-    // if ( ch == '1' ) { // is this the ascii digit 1?
-    //   return true;
-    // } else {
-    //   return false;
-    // }
-    return ch == '1';
+    if ( ch == '1' ) { // is this the ascii digit 1?
+      return true;
+    } else {
+      return false;
+    }
+    // return ch == '1';
   }
 }
 
