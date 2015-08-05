@@ -2,7 +2,7 @@
 
 DistanceGP2Y0A21YK Dist;
 
-int distance = 30;        // THIS IS WHERE YOU ADJUST THE DISTANCE THRESHOLD - the higher the number, the farther away it will look for a trigger
+int distance = 14;        // THIS IS WHERE YOU ADJUST THE DISTANCE THRESHOLD - the higher the number, the farther away it will look for a trigger
 
 const int dirpin = 12;    // Tells the driver what direction to rotate.
 const int steppin = 13;   // Tells the driver to step.
@@ -15,9 +15,10 @@ int rpm = 6;  // Speed at which motor turns.
 long stepdelay = (60*1000000)/(rpm * 1600); // Microseconds per step.
 int rampup = 10;  // Number of steps to speed up and slow down at half speed.
 
-int readDist = 60;
+int readDist; // This variable is used to store the result of querying the sensor, so that we don't have to re-query the sensor every time we want the distance.
+              // This in effect decouples looking at the distance from getting the distance.
 
-bool nextRotation = false; // Which amount of steps to turn the disk (true is 756, false if 844 - see line 11)
+bool nextRotation = true; // Which amount of steps to turn the disk (true is 756, false if 844 - see line 11)
 
 void setup() 
 {
@@ -37,12 +38,14 @@ void loop()
   if (readDist < distance) { // If [get distance in cm] is less than [distance variable], then set begin motor sequence
 
     Serial.print( "Distance: ");
-    Serial.println( Dist.getDistanceCentimeter() );
+    Serial.println( readDist );
     // int i;
 
     spinDisk();
     delay(random(2000, 4000));
     spinDisk();
+    delay(random(2000, 4000));
+    triggerSign();
     delay(random(2000, 4000));
 
     readDist = Dist.getDistanceCentimeter();
@@ -52,10 +55,10 @@ void loop()
       Serial.print( "Distance: ");
       Serial.println( readDist );
 
-      triggerSign();
+      spinDisk();
       delay(random(2000, 4000));
 
-      spinDisk();
+      triggerSign();
       delay(random(2000, 4000));
 
       if (random(10) <= 5) {
@@ -71,9 +74,6 @@ void loop()
       readDist = Dist.getDistanceCentimeter();
 
     }
-
-    // delay(4000+random(2000));                   // Delay between tappern 2 and 1 in ms.
-
 
   }
   // if (readDist < distance) {
@@ -93,7 +93,7 @@ void spinDisk()
   int i;
   if (nextRotation)
   {
-    Serial.println("Part 1");
+    Serial.println("DISK - 1ST SET");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
       digitalWrite(steppin, LOW);  // This LOW to HIGH change is what creates the
       digitalWrite(steppin, HIGH); // "Rising Edge" so the easydriver knows to when to step.
@@ -115,7 +115,7 @@ void spinDisk()
     nextRotation = false;
   } 
   else {
-    Serial.println("Part 2");
+    Serial.println("DISK - 2ST SET");
     for (i = 0; i<rampup; i++) {      // Iterate for 'rampup' microsteps.
       digitalWrite(steppin, LOW);  // This LOW to HIGH change is what creates the
       digitalWrite(steppin, HIGH); // "Rising Edge" so the easydriver knows to when to step.
@@ -139,6 +139,7 @@ void spinDisk()
 }
 
 void triggerSign() {
+  Serial.println("SIGN");
   digitalWrite(signalsign, HIGH);
   delay(10);
   digitalWrite(signalsign, LOW);
